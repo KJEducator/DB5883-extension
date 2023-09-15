@@ -1,7 +1,7 @@
 ({
-    name: "HMC5883", // Category Name
+    name: "DB5883", // Category Name
     description: "3-Axis Digital Compass",
-    author: "IOXhop.com",
+    author: "K",
     category: "Sensors",
     version: "1.0.0",
     icon: "/static/icon.png", // Category icon
