@@ -4,7 +4,7 @@ from time import sleep
 import math
 import os
 
-HMC5883_ADDR = 0x1E
+HMC5883_ADDR = 0x0D
 
 machine = os.uname().machine
 if ("KidBright32" in machine) or ("KidMotor V4" in machine):
