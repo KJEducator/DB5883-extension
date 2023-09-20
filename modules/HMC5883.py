@@ -12,7 +12,7 @@ if ("KidBright32" in machine) or ("KidMotor V4" in machine):
 elif "Mbits" in machine:
     i2c1 = I2C(0, scl=Pin(21), sda=Pin(22), freq=100000)
 else:
-    i2c1 = I2C(0, scl=Pin(22), sda=Pin(21), freq=100000)
+    i2c1 = I2C(0, scl=Pin(5), sda=Pin(3), freq=100000)
 
 def setup():
     i2c1.writeto_mem(HMC5883_ADDR, 0x02, b'\x00')
