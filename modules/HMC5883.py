@@ -38,7 +38,7 @@ def heading():
     if heading > 2 * math.pi:
         heading -= 2 * math.pi
     #return heading * 180 / math.pi
-    d = i2c1.readfrom_mem(HMC5883_ADDR, DB5883_READ_ADDR, 6)
+    d = i2c1.readfrom_mem(HMC5883_ADDR, 0x03, 6)
     return d[0]
 
 def calibrate():
