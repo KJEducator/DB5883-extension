@@ -1,5 +1,6 @@
 from machine import Pin
 from machine import I2C
+from machine import Pin, SoftI2C
 from time import sleep
 import math
 import os
@@ -14,7 +15,7 @@ if ("KidBright32" in machine) or ("KidMotor V4" in machine):
 elif "Mbits" in machine:
     i2c1 = I2C(0, scl=Pin(21), sda=Pin(22), freq=100000)
 elif "PuppyBot with RP2040" in machine:
-    i2c1 = I2C(0, scl=Pin(5), sda=Pin(4), freq=400000)
+    i2c1 = SoftI2C(scl=Pin(5), sda=Pin(4), freq=100_000)
 else:
     i2c1 = I2C(0, scl=Pin(22), sda=Pin(21), freq=100000)
 
