@@ -23,9 +23,9 @@ def raw():
     #x = b2i(d[0], d[1]) * 0.92 * 0.1 # mG to uT
     #y = b2i(d[2], d[3]) * 0.92 * 0.1
     #z = b2i(d[4], d[5]) * 0.92 * 0.1 
-    x = b2i(d[1], d[0])# * 0.92 * 0.1 # mG to uT
-    y = b2i(d[3], d[2])# * 0.92 * 0.1
-    z = b2i(d[5], d[4])# * 0.92 * 0.1 
+    x = b2i(d[0], d[1])# * 0.92 * 0.1 # mG to uT
+    y = b2i(d[2], d[3])# * 0.92 * 0.1
+    z = b2i(d[4], d[5])# * 0.92 * 0.1 
     s = math.sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2))
     return (x, y, z, s)
 
@@ -35,12 +35,16 @@ yMax = -99999
 yMin = 99999
 def heading():
     x, y, z, s = raw()
-    heading = math.atan2((y - ((yMax + yMin) / 2.0)), (x - ((xMax + xMin) / 2.0)))
-    if heading < 0:
-        heading += 2 * math.pi
-    if heading > 2 * math.pi:
-        heading -= 2 * math.pi
-    return heading * 180 / math.pi
+    #heading = math.atan2((y - ((yMax + yMin) / 2.0)), (x - ((xMax + xMin) / 2.0)))
+    #if heading < 0:
+    #    heading += 2 * math.pi
+    #if heading > 2 * math.pi:
+    #    heading -= 2 * math.pi
+    #return heading * 180 / math.pi
+    heading = math.atan2(y, x) * 180.0/math.pi
+    if heading < 0 :
+        heading = 360 + heading
+    return heading
 
 def calibrate():
     global xMax, xMin, yMax, yMin
