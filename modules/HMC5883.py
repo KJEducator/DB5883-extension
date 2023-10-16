@@ -37,7 +37,8 @@ def heading():
         heading += 2 * math.pi
     if heading > 2 * math.pi:
         heading -= 2 * math.pi
-    return heading * 180 / math.pi
+    #return heading * 180 / math.pi
+    return 5
 
 def calibrate():
     global xMax, xMin, yMax, yMin
