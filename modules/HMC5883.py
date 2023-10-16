@@ -1,5 +1,3 @@
-from machine import Pin
-from machine import I2C
 from machine import Pin, SoftI2C
 from time import sleep
 import math
@@ -9,26 +7,19 @@ HMC5883_ADDR = 0x0D
 DB5883_SETUP_ADDR = 0x09
 DB5883_READ_ADDR = 0x00
 
-machine = os.uname().machine
-if ("KidBright32" in machine) or ("KidMotor V4" in machine):
-    i2c1 = I2C(1, scl=Pin(5), sda=Pin(4), freq=100000)
-elif "Mbits" in machine:
-    i2c1 = I2C(0, scl=Pin(21), sda=Pin(22), freq=100000)
-elif "PuppyBot with RP2040" in machine:
-    i2c1 = SoftI2C(scl=Pin(5), sda=Pin(4), freq=100_000)
-else:
-    i2c1 = I2C(0, scl=Pin(22), sda=Pin(21), freq=100000)
+#machine = os.uname().machine
+i2c1 = SoftI2C(scl=Pin(5), sda=Pin(4), freq=100_000)
 
 def setup():
-    #i2c1.writeto_mem(HMC5883_ADDR, 0x02, b'\x00')
-    i2c1.writeto_mem(HMC5883_ADDR, DB5883_SETUP_ADDR, b'\x00')
+    i2c1.writeto_mem(HMC5883_ADDR, 0x02, b'\x00') ##Set (0x02 Register) mode to Continuous (00)
+    #i2c1.writeto_mem(HMC5883_ADDR, DB5883_SETUP_ADDR, b'\x00')
 
 def b2i(x, y):
     return (x << 8 | y) if not x & 0x80 else (-(((x ^ 255) << 8) | (y ^ 255) + 1))
 
 def raw():
-    #d = i2c1.readfrom_mem(HMC5883_ADDR, 0x03, 6)
-    d = i2c1.readfrom_mem(HMC5883_ADDR, DB5883_READ_ADDR, 6)
+    d = i2c1.readfrom_mem(HMC5883_ADDR, 0x03, 6)
+    #d = i2c1.readfrom_mem(HMC5883_ADDR, DB5883_READ_ADDR, 6)
     x = b2i(d[0], d[1]) * 0.92 * 0.1 # mG to uT
     y = b2i(d[2], d[3]) * 0.92 * 0.1
     z = b2i(d[4], d[5]) * 0.92 * 0.1 
